@@ -1,8 +1,6 @@
-# Ltp::Cloud::Sdk
+# Ltp::Cloud::Sdk 语言云非官方ruby SDK
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ltp/cloud/sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+[语言云](https://www.ltp-cloud.com)
 
 ## Installation
 
@@ -22,7 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`rails`:
+
+create `ltp_cloud_sdk` file in the `initializers` directory:
+
+```ruby
+Ltp::Cloud::Sdk.configure do |config|
+  config.api_key = 'Your Key Here'
+end
+```
+
+```ruby
+Ltp::Cloud::Sdk.client.analysis('南京市长江大桥能不能长一点')
+// ["南京市", "长江", "大桥", "能", "不", "能", "长", "一点"]
+```
 
 ## Development
 
