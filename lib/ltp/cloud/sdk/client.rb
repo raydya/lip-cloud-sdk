@@ -24,8 +24,12 @@ module Ltp
           }.merge data
         end
 
-        def request(service, payload)
-          res = RestClient.get(uri(service), params: payload)
+        def request(service, payload, timeout)
+          res = RestClient::Request.execute(method:  :get,
+                                            url:     uri(service),
+                                            timeout: timeout,
+                                            headers: { params: payload }
+          )
           res.body
         end
 
@@ -33,9 +37,9 @@ module Ltp
           "#{END_POINT}#{service}"
         end
 
-        def analysis(text)
-          payload = request_payload({ text: URI::encode(text), pattern: 'ws' })
-          res = request 'analysis', payload
+        def analysis(text, timeout = 5)
+          payload = request_payload({ text: CGI::escape(text), pattern: 'ws' })
+          res     = request 'analysis', payload, timeout
           res.split(' ')
         end
       end
